@@ -5,6 +5,10 @@
   box-sizing: border-box;
 }
 
+ul {
+  list-style: none;
+}
+
 a {
   text-decoration: none;
 }
@@ -25,7 +29,7 @@ img {
   --base-color-second: hsl(var(--hue) 65% 88%);
   --base-color-alt: hsl(var(--hue) 57% 53%);
   --title-color: hsl(var(--hue) 41% 10%);
-  --text-color: hsl(0 0% 45%);
+  --text-color: hsl(0 0% 46%);
   --text-color-light: hsl(0 0% 98%);
   --body-color: hsl(0 0% 98%);
 }
@@ -35,13 +39,13 @@ body {
   font: 400 1rem "DM Sans", sans-serif;
   color: var(--text-color);
   background: var(--body-color);
-  --webkit-font-smoothing: antialiased; /* essa linha afina um pouco as letras das palavras e textos do body */
+  -webkit-font-smoothing: antialiased; /* essa linha afina um pouco as letras das palavras e textos do body */
 }
 
-h1 {
+.title {
   font: 700 1.875rem "Poppins", sans-serif;
   color: var(--title-color);
-  --webkit-font-smoothing: auto; /* essa linha afina um pouco as letras das palavras e textos do body */
+  -webkit-font-smoothing: auto; /* essa linha afina um pouco as letras das palavras e textos do body */
 }
 
 .button {
@@ -71,7 +75,7 @@ h1 {
 
 /* ===== LAYOUT =============================== */
 .container {
-  /*width: 100%;   -   apenas para ilustrar... se deixar esse width atio, teremos uma barra de olagem horizontal. Mesmo problema que ocorreu em outro site que fizemos em um nlw atrás... */
+  /*width: 100%;   -   apenas para ilustrar... se deixar esse width ativo, teremos uma barra de rolagem horizontal. Mesmo problema que ocorreu em outro site que fizemos em um nlw atrás... */
   margin-left: 1.5rem;
   margin-right: 1.5rem;
 }
@@ -123,11 +127,42 @@ nav {
   width: 100%;
 }
 
+nav ul li {
+  text-align: center;
+}
+
+nav ul li a {
+  transition: color 0.2s;
+  position: relative;
+}
+
+nav ul li a:hover {
+  color: var(--base-color);
+}
+
+nav ul li a::after {
+  content: "";
+  width: 0%;
+  height: 2px;
+  background: var(--base-color);
+
+  position: absolute;
+  left: 0;
+  bottom: -1.5rem;
+
+  transition: width 0.2s; /* aqui fazemos a transição da barra embaixo das opções início, sobre, serviços, depoimentos e contato */
+}
+
+nav ul li a:hover::after {
+  width: 100%;
+}
+
 nav .menu {
   opacity: 0;
   visibility: hidden;
 }
 
+/* MOSTRAR MENU */
 nav.show .menu {
   /*usando o "nav.show" (sem espaço após o ponto) estamos dizendo para o "nav" receber o show. 
    *Se deixarmos o espaço o CSS entende que já existe aquela classe 
@@ -138,6 +173,20 @@ nav.show .menu {
   background: var(--body-color);
 
   height: 100vh;
+  width: 100vw;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+nav.show .menu {
+  display: grid;
+  place-content: center;
+}
+
+nav.show ul.grid {
+  gap: 4rem;
 }
 
 /* ===== HOME =============================== */
