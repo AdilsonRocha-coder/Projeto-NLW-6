@@ -160,7 +160,8 @@ main {
   color: var(--base-color);
 }
 
-.logo-alt span{  /* aqui mudamos a cor da logo no rodapé */
+.logo-alt span {
+  /* aqui mudamos a cor da logo no rodapé */
   color: var(--body-color);
 }
 
@@ -386,12 +387,12 @@ nav.show div.icon-close {
   background: white;
 }
 
-#testimonials .container{
+#testimonials .container {
   margin-left: 0;
   margin-right: 0;
 }
 
-#testimonials header{
+#testimonials header {
   margin-left: 1.5rem;
   margin-right: 1.5rem;
   margin-bottom: 0;
@@ -436,12 +437,12 @@ nav.show div.icon-close {
 }
 
 /* SWIPER */
-.swiper-slide{
+.swiper-slide {
   height: auto;
   padding: 4rem 1rem;
 }
 
-.swiper-pagination-bullet-active{
+.swiper-pagination-bullet-active {
   background: var(--base-color);
 }
 
@@ -450,11 +451,11 @@ nav.show div.icon-close {
   color: var(--base-color);
 }
 
-#contact .grid{
+#contact .grid {
   gap: 4rem;
 }
 
-#contact .text p{
+#contact .text p {
   margin-bottom: 2rem;
 }
 
@@ -464,53 +465,63 @@ contact ul li i {
   margin-right: 0.625rem;
 }
 
-#contact ul.grid{
+#contact ul.grid {
   gap: 2rem;
 }
 
-#contact ul li{
+#contact ul li {
   display: flex;
   align-items: center;
 }
 
-#contact ul li i{
+#contact ul li i {
   color: var(--base-color);
 }
 
 /* ===== FOOTER =============================== */
-#section-footer{
+#section-footer {
+  /* eu criei esse id pra diminuir o padding do footer. Achei muito grande no original. */
   padding: 2rem 0;
 }
 
-footer{
+footer {
   background: var(--base-color);
 }
 
-footer .logo{
+footer .logo {
   display: inline-block;
   margin-bottom: 1.5rem;
 }
 
-footer .brand p{ 
+footer .brand p {
   color: var(--text-color-light);
   margin-bottom: 0.75rem;
 }
 
-footer i{
+footer i {
   font-size: 1.5rem;
   color: var(--text-color-light);
 }
-footer .social a{
+footer .social a {
   margin-right: 2rem;
+  transition: 0.3s;
+  display: inline-block;
   /*
   * podemos também fazer de outra forma esse * distanciamento dos ícones do footer, * * * usando o display e o gap
   * display: flex;
   * gap: 2rem;
   */
+
+  /* um elemento com display inline não recebe transições.
+  Por isso, temos que colocar ele como inline-block, assim ele aceita o hover, abaixo */
+}
+
+footer .social a:hover {
+  transform: translateY(-5px);
 }
 
 /* ===== BACK-TO-TOP =============================== */
-.back-to-top{
+.back-to-top {
   background: var(--base-color);
   color: var(--text-color-light);
 
@@ -525,7 +536,35 @@ footer .social a{
   line-height: 0;
 
   visibility: hidden;
-
   opacity: 0;
-  
+
+  transition: 0.3s;
+  transform: translateY(
+    100%
+  ); /* não entendi muito bem esse movimento que o Mayk fez... com o javascript do botão voltar ele já aparecia
+  apenas após os 600px de scroll da tela para baixo... */
+}
+
+.back-to-top.show {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(
+    0
+  ); /* faz parte do movimento da seta para cima - que não entendi muito bem pois, já temos o javascript fazendo isso... */
+}
+
+/* MEDIA QUERIES - RESPONSIVIDADE */
+/* 320px — 480px: Mobile devices.
+** 481px — 768px: iPads, Tablets.
+** 769px — 1024px: Small screens, laptops.
+**1025px — 1200px: Desktops, large screens.
+**1201px and more — Extra large screens, TV.
+*/
+@media (min-width: 792px) {
+}
+
+@media (min-width: 1025px) {
+}
+
+@media (min-width: 1201px) {
 }
