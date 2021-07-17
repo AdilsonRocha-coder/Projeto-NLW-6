@@ -23,6 +23,8 @@ img {
   --header-height: 4.5rem;
 
   /* abaixo podemos mudar os valores das cores e mudamos a cor de fundo do site, bem legal */
+
+  /* COLORS */
   --hue: 159;
   /* HSL color made */
   --base-color: hsl(var(--hue) 36% 57%);
@@ -32,6 +34,13 @@ img {
   --text-color: hsl(0 0% 46%);
   --text-color-light: hsl(0 0% 98%);
   --body-color: hsl(0 0% 98%);
+
+  /* FONTS */
+  --title-font-size: 1.875rem;
+  --subtitle-font-size: 1rem;
+
+  --title-font: 'Poppins', sans-serif;
+  --body-font: 'DM Sans', sans-serif;
 }
 
 /* ===== BASE =============================== */
@@ -40,14 +49,14 @@ html {
 }
 
 body {
-  font: 400 1rem "DM Sans", sans-serif;
+  font: 400 1rem var(--body-font);
   color: var(--text-color);
   background: var(--body-color);
   -webkit-font-smoothing: antialiased; /* essa linha afina um pouco as letras das palavras e textos do body */
 }
 
 .title {
-  font: 700 1.875rem "Poppins", sans-serif;
+  font: 700 var(--title-font-size) var(--title-font), sans-serif;
   color: var(--title-color);
   -webkit-font-smoothing: auto; /* essa linha afina um pouco as letras das palavras e textos do body */
 }
@@ -60,7 +69,7 @@ body {
   align-items: center;
   padding: 0 2rem;
   border-radius: 0.25rem;
-  font: 500 1rem "DM Sans", sans-serif;
+  font: 500 1rem var(--body-font);
   transition: background 0.3s;
 }
 
@@ -100,11 +109,15 @@ body {
 }
 
 .section {
-  padding: 5rem 0;
+  padding: calc(5rem + var(--header-height)) 0;
 }
 
 .section .title {
   margin-bottom: 1rem;
+}
+
+.section .subtitle {
+  font-size: var(--subtitle-font-size);
 }
 
 .section header {
@@ -144,15 +157,17 @@ Aqui mudamos a cor do hamburger
   obs: podemos inclusive inserir uma transição para suavizar a mudança das cores
 */
 
+/* ABAIXO o Mayk havia feito esse cálculo mas, o espaçamento ainda não estava legal. Então ele fez novo código que está no media query no tamanhl maior que 1200px */
+/*
 main {
   margin-top: calc(
     var(--header-height) + 2rem
-  ); /* aqui o "calc" calculará o espaço entre o header "beautysalon" e a parte de baixo */
-}
+  ); /* aqui o "calc" calculará o espaço entre o header "beautysalon" e a parte de baixo 
+}*/
 
 /* ===== LOGO =============================== */
 .logo {
-  font: 700 1.31rem "Poppins", sans-serif;
+  font: 700 1.31rem var(--title-font), sans-serif;
   color: var(--title-color);
 }
 
@@ -479,8 +494,7 @@ contact ul li i {
 }
 
 /* ===== FOOTER =============================== */
-#section-footer {
-  /* eu criei esse id pra diminuir o padding do footer. Achei muito grande no original. */
+footer.section {
   padding: 2rem 0;
 }
 
@@ -502,6 +516,12 @@ footer i {
   font-size: 1.5rem;
   color: var(--text-color-light);
 }
+
+footer .social{
+  grid-auto-flow: column;
+  width: fit-content;
+}
+
 footer .social a {
   margin-right: 2rem;
   transition: 0.3s;
@@ -553,7 +573,10 @@ footer .social a:hover {
   ); /* faz parte do movimento da seta para cima - que não entendi muito bem pois, já temos o javascript fazendo isso... */
 }
 
+/* ===== MEDIA QUERIES =============================== */
+
 /* MEDIA QUERIES - RESPONSIVIDADE */
+
 /* 320px — 480px: Mobile devices.
 ** 481px — 768px: iPads, Tablets.
 ** 769px — 1024px: Small screens, laptops.
@@ -563,7 +586,64 @@ footer .social a:hover {
 @media (min-width: 792px) {
 }
 
-@media (min-width: 1025px) {
+@media (min-width: 992px) {
+  :root {
+    --title-font-size: 2.25rem;
+    --subtitle-font-size: 1.125rem;
+  }
+}
+
+/* media query for devices with width of 1200px and higher */
+@media (min-width: 1200px) {
+  .container{
+    max-width: 1120px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .section {
+    padding: 10rem 0;
+  }
+
+/* aqui trabalhamos o menu. Até enão ele estava escondido, para aparecer o hamburguer */
+  nav .menu{  
+    opacity: 1;
+    visibility: visible;
+    top: 0;
+  }
+
+  nav .menu ul{
+    display: flex;
+    gap: 2rem;
+  }
+
+  nav .menu ul li a.title{
+    font: 400 1rem var(--body-font);
+  }
+
+  nav .icon-menu{
+    display: none;
+  }
+
+  /* acertando o posicionamento da home */
+  #home .container{
+    grid-auto-flow: column;
+    justify-content: space-between;
+    margin: 0 auto;
+  }
+  
+  #home .image{
+    order: 1;
+  }
+
+  #home .text{
+    order: 0;
+    max-width: 24rem;
+    text-align: left;
+  }
+
+  main {
+    margin-top: var(--header-height); /* aqui começamos a ajustar o espaçamento do margin-top. O restante está no ".section" na linha 108 */
+  }
 }
 
 @media (min-width: 1201px) {
