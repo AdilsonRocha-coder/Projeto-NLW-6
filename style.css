@@ -25,11 +25,11 @@ img {
   /* abaixo podemos mudar os valores das cores e mudamos a cor de fundo do site, bem legal */
 
   /* COLORS */
-  --hue: 159;
+  --hue: 0;  /* o hue original era 159 */
   /* HSL color made */
-  --base-color: hsl(var(--hue) 36% 57%);
-  --base-color-second: hsl(var(--hue) 65% 88%);
-  --base-color-alt: hsl(var(--hue) 57% 53%);
+  --base-color: hsl(var(--hue) 42% 55%);   /* a porcentagem original era 36% 57% */
+  --base-color-second: hsl(var(--hue) 65% 88%);  /* a porcentagem original era 36% 57% */
+  --base-color-alt: hsl(var(--hue) 37% 23%);/* a porcentagem original era 57% 53% */
   --title-color: hsl(var(--hue) 41% 10%);
   --text-color: hsl(0 0% 46%);
   --text-color-light: hsl(0 0% 98%);
@@ -384,6 +384,19 @@ nav.show div.icon-close {
 }
 
 /* ===== SERVICES =============================== */
+header .subtitle span1{
+  font: 700 1rem var(--body-font);
+  color: var(--base-color);
+}
+
+header .subtitle span2{
+  font: 700 1rem var(--body-font);
+  color: var(--text-color);
+}
+
+.subtitle span {
+  color: var(--base-color);
+}
 .cards.grid {
   gap: 1.5rem;
 }
@@ -596,12 +609,22 @@ footer .social a:hover {
 **1201px and more — Extra large screens, TV.
 */
 @media (min-width: 792px) {
+  :root {
+    --title-font-size: 2.25rem;
+    --subtitle-font-size: 1.125rem;
+  }
 }
 
 @media (min-width: 992px) {
   :root {
     --title-font-size: 2.25rem;
     --subtitle-font-size: 1.125rem;
+  }
+
+  .container {
+    max-width: 1120px;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 

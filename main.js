@@ -11,7 +11,7 @@ for (const element of toggle) {
     nav.classList.toggle("show");
   });
 }
-//a função acima dia para o 'nav' colocar a classe 'show' (caso ela não tenha) ou retire a classe 'show' caso ela tenha. Tod vez que clicarmos no ícone do menu.
+//a função acima diz para o 'nav' colocar a classe 'show' (caso ela não tenha) ou retire a classe 'show' caso ela tenha. Tod vez que clicarmos no ícone do menu.
 
 // a const 'element' é a 'div' que tem a class 'toggle icon-menu' e 'toggle icon-close'
 
