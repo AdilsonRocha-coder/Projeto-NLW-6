@@ -23,12 +23,12 @@ for (const link of links) {
   });
 }
 
-/* mudar o header da página quando executarmos o scroll */
-function changeHeaderWhenScroll() {
-  const header = document.querySelector("#header");
-  const navHeight = header.offsetHeight; //aqui pegamos o deslocamento da altura (offset) do header
+/* mudar o header da página quando executarmos o scroll - colocar um sombreamento no divisor do header */
+const header = document.querySelector("#header");
+const navHeight = header.offsetHeight; //aqui pegamos o deslocamento da altura (offset) do header
 
-  if (this.window.scrolly >= navHeight) {
+function changeHeaderWhenScroll() {
+  if (this.window.scrollY >= navHeight) {
     //aqui se o scroll é maior ou igual à altura do header fazemos algo
     header.classList.add("scroll");
   } else {
@@ -37,7 +37,7 @@ function changeHeaderWhenScroll() {
   }
 }
 
-/* TESTIMONIALS SLIDER (CAROUSEL) SWIPER */
+/* TESTIMONIALS SLIDER SWIPER */
 const swiper = new Swiper(".swiper-container", {
   slidesPerView: 1,
   pagination: {
@@ -45,6 +45,13 @@ const swiper = new Swiper(".swiper-container", {
   },
   mousewheel: true,
   keyboard: true,
+  /* abaixo fazemos o "box" de cada depoimento para devides >= 767px */
+  breakpoints: {
+    767: {
+      slidesPerView: 2,
+      setWrapperSize: true,
+    },
+  },
 });
 
 /* SCROLLREVEAL - ELE MOSTRA OS ELEMENTOS QUANDO DAR O SCROLL NA PÁGINA */
@@ -56,7 +63,7 @@ const scrollReveal = ScrollReveal({
 });
 
 scrollReveal.reveal(
-  `#home .image, #home .text,
+  ` #home .image, #home .text,
     #about .image, #about .text,
     #services header, #services.card,
     #testimonials header, #testimonials .testimonials,
@@ -67,9 +74,9 @@ scrollReveal.reveal(
 );
 
 /* BOTÃO VOLTAR PARA O TOPO */
-function backToTop() {
-  const backToTopButton = document.querySelector(".back-to-top");
+const backToTopButton = document.querySelector(".back-to-top");
 
+function backToTop() {
   if (this.window.scrollY >= 600) {
     backToTopButton.classList.add("show");
   } else {
@@ -77,10 +84,36 @@ function backToTop() {
   }
 }
 
+/* Menu ativo conforme a seção visível na página */
+const sections = document.querySelectorAll("main section[id]");
+function activateMenuAtCurrentSection() {
+  const checkpoint = window.pageYOffset + (window.innerHeight / 8) * 4;   /* aqui dividimos a section em 8 e multiplicou por 4 para que a lógica montada resulte na mudança das sections e o menu de cada section ativa fique com a barra ativada e as letras com bold */
+
+  for (const section of sections) {
+    const sectionTop = section.offsetTop;
+    const sectionHeight = section.offsetHeight;
+    const sectionId = section.getAttribute("id");
+
+    const checkpointStart = checkpoint >= sectionTop;
+    const checkpointEnd = checkpoint <= sectionTop + sectionHeight;
+
+    if (checkpointStart && checkpointEnd) {
+      document
+        .querySelector("nav ul li a[href*=" + sectionId + "]")
+        .classList.add("active");
+    } else {
+      document
+        .querySelector("nav ul li a[href*=" + sectionId + "]")
+        .classList.remove("active");
+    }
+  }
+}
+
 /* WHEN SCROLL */
 window.addEventListener("scroll", function () {
   changeHeaderWhenScroll();
   backToTop();
+  activateMenuAtCurrentSection();
 });
 
 /* inicialmente o Mayk tinha feito essa lógica para fazermos o scroll. Depois ele mostrou 
@@ -100,5 +133,4 @@ window.addEventListener("scroll", function () {
     header.classList.remove("scroll");
   }
 });
-
 */

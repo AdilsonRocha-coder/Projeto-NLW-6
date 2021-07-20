@@ -39,8 +39,8 @@ img {
   --title-font-size: 1.875rem;
   --subtitle-font-size: 1rem;
 
-  --title-font: 'Poppins', sans-serif;
-  --body-font: 'DM Sans', sans-serif;
+  --title-font: "Poppins", sans-serif;
+  --body-font: "DM Sans", sans-serif;
 }
 
 /* ===== BASE =============================== */
@@ -56,7 +56,7 @@ body {
 }
 
 .title {
-  font: 700 var(--title-font-size) var(--title-font), sans-serif;
+  font: 700 var(--title-font-size) var(--title-font);
   color: var(--title-color);
   -webkit-font-smoothing: auto; /* essa linha afina um pouco as letras das palavras e textos do body */
 }
@@ -133,19 +133,24 @@ body {
   margin-bottom: 2rem;
   display: flex;
 
-  width: 100%;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 100;
   background-color: var(--body-color);
+  width: 100%;
 }
 
 #header.scroll {
   box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* inserindo o css abaixo, podemos mudar a cor da logo quando fizermos o scroll
+/* inserindo os css abaixo, podemos mudar o background, a cor da logo e a cor do hamburger, quando fizermos o scroll:
+
+#header.scroll{
+  background: var(--base-color);
+  box-shadow: 0px 0px 12x rgba(0,0,0,0.15);
+
 #header.scroll .logo span{
   color: white;
 }
@@ -154,7 +159,7 @@ Aqui mudamos a cor do hamburger
 #header.scroll .icon-menu{
   color: white;
 
-  obs: podemos inclusive inserir uma transição para suavizar a mudança das cores
+  obs: podemos inclusive inserir uma transição para suavizar a mudança das cores da logo e do hamburguer
 */
 
 /* ABAIXO o Mayk havia feito esse cálculo mas, o espaçamento ainda não estava legal. Então ele fez novo código que está no media query no tamanhl maior que 1200px */
@@ -167,7 +172,8 @@ main {
 
 /* ===== LOGO =============================== */
 .logo {
-  font: 700 1.31rem var(--title-font), sans-serif;
+  font: 700 1.5rem var(--title-font),
+    /* o tamanho original do logo era 1.34rem */ sans-serif;
   color: var(--title-color);
 }
 
@@ -199,7 +205,8 @@ nav ul li a {
   position: relative;
 }
 
-nav ul li a:hover {
+nav ul li a:hover,
+nav ul li a.active {
   color: var(--base-color);
 }
 
@@ -217,7 +224,8 @@ nav ul li a::after {
   transition: width 0.2s; /* aqui fazemos a transição da barra embaixo das opções início, sobre, serviços, depoimentos e contato */
 }
 
-nav ul li a:hover::after {
+nav ul li a:hover::after,
+nav ul li a.active:after {
   /* ainda configurando a barrinha */
   width: 100%;
 }
@@ -249,6 +257,9 @@ nav.show .menu {
   position: fixed;
   top: 0;
   left: 0;
+
+  display: grid;
+  place-content: center;
 }
 
 nav.show .menu ul {
@@ -475,7 +486,7 @@ nav.show div.icon-close {
 }
 
 #contact .button i,
-contact ul li i {
+#contact ul li i {
   font-size: 1.5rem;
   margin-right: 0.625rem;
 }
@@ -517,7 +528,8 @@ footer i {
   color: var(--text-color-light);
 }
 
-footer .social{
+/* esse css abaixo, atuará quando usarmos a classe "grid" no no div do footer */
+footer .social {
   grid-auto-flow: column;
   width: fit-content;
 }
@@ -537,7 +549,7 @@ footer .social a {
 }
 
 footer .social a:hover {
-  transform: translateY(-5px);
+  transform: translateY(-6px);
 }
 
 /* ===== BACK-TO-TOP =============================== */
@@ -595,56 +607,133 @@ footer .social a:hover {
 
 /* media query for devices with width of 1200px and higher */
 @media (min-width: 1200px) {
-  .container{
+  /* reusable classes */
+  main {
+    margin-top: var(--header-height);
+  }
+
+  .container {
     max-width: 1120px;
     margin-left: auto;
     margin-right: auto;
   }
+
   .section {
     padding: 10rem 0;
   }
 
-/* aqui trabalhamos o menu. Até enão ele estava escondido, para aparecer o hamburguer */
-  nav .menu{  
+  .section header,
+  #testimonials header {
+    max-width: 32rem;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .button {
+    height: 3.125rem;
+  }
+
+  /* aqui trabalhamos o menu. Até enão ele estava escondido, para aparecer o hamburguer */
+  /* navigation */
+  nav .menu {
     opacity: 1;
     visibility: visible;
     top: 0;
   }
 
-  nav .menu ul{
+  nav .menu ul {
     display: flex;
     gap: 2rem;
   }
 
-  nav .menu ul li a.title{
+  nav .menu ul li a.title {
     font: 400 1rem var(--body-font);
+    -webkit-font-smoothing: antialiased;
   }
 
-  nav .icon-menu{
+  nav .menu ul li a.title.active {
+    font-weight: bold;
+    -webkit-font-smoothing: auto;
+  }
+
+  nav .icon-menu {
     display: none;
   }
 
+  /* layout */
+  main {
+    margin-top: var(
+      --header-height
+    ); /* aqui começamos a ajustar o espaçamento do margin-top. O restante está no ".section" na linha 108 */
+  }
+
+  /* ===== HOME =============================== */
+
   /* acertando o posicionamento da home */
-  #home .container{
+  #home .container {
     grid-auto-flow: column;
     justify-content: space-between;
     margin: 0 auto;
   }
-  
-  #home .image{
+
+  #home .image {
     order: 1;
   }
 
-  #home .text{
+  #home .text {
     order: 0;
     max-width: 24rem;
     text-align: left;
   }
 
-  main {
-    margin-top: var(--header-height); /* aqui começamos a ajustar o espaçamento do margin-top. O restante está no ".section" na linha 108 */
+  /* ABOUT */
+  #about .container {
+    margin: 0 auto;
+    grid-auto-flow: column;
   }
-}
 
-@media (min-width: 1201px) {
+  /* services */
+  .cards {
+    grid-template-columns: 1fr 1fr 1fr;
+    /*aqui mostramos os serviços dividimos em 3 colunas. Caso queiramos mais colunas, basta incluir a quantidade de frações. Podemos também ter colunas maiores que outras e pra isso podemos usar, por exemplo: 2fr 3fr 1fr */
+  }
+
+  .card {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+
+  /* testimonials */
+  /* para ajustar o header dos testimonials */
+  #testimonials .container {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* contact */
+
+  #contact .container {
+    grid-auto-flow: column;
+    align-items: center; /* aqui alinhamos os contatos no centro (horizontal e vertical) */
+  }
+
+  #contact .text {
+    max-width: 25rem;
+  }
+
+  /* footer */
+  footer.section {
+    padding: 3.75rem 0;
+  }
+
+  footer .container {
+    grid-auto-flow: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  footer .logo {
+    font-size: 2.25rem;
+  }
 }
